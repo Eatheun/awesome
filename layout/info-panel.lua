@@ -8,6 +8,7 @@ local clickable_container = require("widget.material.clickable-container")
 local mat_icon_button = require("widget.material.icon-button")
 local mat_icon = require("widget.material.icon")
 local icons = require("theme.icons")
+local colors = require("theme.mat-colors").color_palette
 
 -- Import widgets
 local wifi_widget = require("widget.wifi")
@@ -50,10 +51,6 @@ local pill_pad = 6 -- base padding on the inside of pill box
 local extra_pad = pill_pad * 2
 local base_size = 22 + pill_pad * 4
 local panel_height = base_size * 5 / 4
-local color_light = "#ffdede"
-local color_med = "#9a6868"
-local color_dark = "#4a312f"
-local color_dark2 = "#183057"
 local font_size = pill_pad * 2
 local font = "Ubuntu Bold " .. font_size
 
@@ -75,7 +72,7 @@ local pill_box = function(widget)
 					dpi(pill_pad),
 					dpi(pill_pad)
 				),
-				bg = color_dark2,
+				bg = colors.color_dark2,
 				shape = function(cr, w, h)
 					gears.shape.rounded_bar(cr, w, h)
 				end,
@@ -133,7 +130,7 @@ local InfoPanel = function(s)
 		width = base_size * 1.55,
 		type = "icon_and_text",
 		word_spacing = pill_pad,
-		main_color = color_light,
+		main_color = colors.color_light,
 	}
 	local concat_table = function(t1, t2)
 		local t3 = {}
@@ -171,19 +168,19 @@ local InfoPanel = function(s)
 
 			-- Add all the imported widgets
 			cpu_widget(concat_table({
-				color = color_light,
+				color = colors.color_light,
 				paddings = pill_pad,
 			}, base_table_args)),
 			pill_separator(),
 			ram_widget(concat_table({
-				color_used = color_dark,
-				color_free = color_light,
-				color_buf = color_med,
+				color_used = colors.color_dark,
+				color_free = colors.color_light,
+				color_buf = colors.color_med,
 				widget_show_buf = true,
 			}, base_table_args)),
 			pill_separator(),
 			volume_widget(concat_table({
-				mute_color = color_dark,
+				mute_color = colors.color_dark,
 			}, base_table_args)),
 			pill_separator(),
 			brightness_widget(concat_table({

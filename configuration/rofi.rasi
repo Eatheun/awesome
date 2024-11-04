@@ -1,22 +1,23 @@
 /**
- * User: deadguy
- * Copyright: deadguy
+ * User: eatheun
+ * Copyright: eatheun
  */
 
 configuration {
-	display-drun:    "Activate";
+	display-drun:    "Open";
 	display-run:     "Execute";
-	show-icons:      true;	
+	show-icons:      false;	
 	sidebar-mode:    true;
 }
 
 * {
-	background-color:            rgb(18, 30, 37);
-	text-color:                  #d3d7cf;
-	selbg:                       rgb(0, 86, 136);
-	actbg:                       rgb(22, 37, 46);
+	background-color:            #3f2053;
+	darker-background-color:     #1f0033;
+	text-color:                  #bef8be;
+	selbg:                       #5f4083;
+	actbg:                       #8a91af;
 	urgbg:                       #e53935;
-	winbg:			     #26c6da;
+	winbg:			     @background-color;
 
 	selected-normal-foreground:  @winbg;
 	normal-foreground:           @text-color;
@@ -33,37 +34,43 @@ configuration {
 	selected-active-background:  @actbg;
 	active-background:           @selbg;
 
-	line-margin:                 2;
-	line-padding:                2;
+	line-margin:                 1;
+	line-padding:                0;
 	separator-style:             "none";
 	hide-scrollbar:              "true";
 	margin:                      0px;
 	padding:                     0px;
-	font:            "Roboto medium 10";
+	font:            "Ubuntu medium 14";
+
+	second-background:	     #492a62;
 }
 
 window {
-	location:	 west;
-	anchor:		 west;
+	location:	 center;
+	anchor:		 center;
 	x-offset: 0px;
-	height:		 100%;
+	height:		 45.1%;
 	margin-right: 60px;
 	orientation: horizontal;
 	children:	 [mainbox];
+	background-color: @actbg;
 }
 
 mainbox {
 	spacing:  0em;
 	padding: 0px;
-	width:200px;
+	width: 960px;
+	border-radius: 12px;
 	children: [ inputbar, listview, sidebar ];
 	expand: true;
 }
 
-button { padding: 5px 2px; }
+button { 
+	padding: 20px 0px 0px 0px; 
+}
 
 button selected {
-	background-color: @active-background;
+	background-color: @background-color;
 	text-color:       @background-color;
 }
 
@@ -71,34 +78,42 @@ inputbar {
      children: [ entry ];
 }
 
-textbox-prompt-colon {                                                
-     text-color: inherit;                                              
-     expand: false;                                                    
+textbox-prompt-colon {
+     text-color: inherit;
+     expand: false;
+     str: ":";
      margin: 0 0.3em 0em 0em;
- }  
+}
 
 listview {
 	spacing: 0em;
-	dynamic: false;
+	dynamic: true;
 	cycle:   true;
 }
 
 element { 
-	padding: 16px;
-	border:  0 0 0 5px solid;
+	padding: 8px;
+	border: 0px solid;
+}
+
+element-text {
+	background-color: inherit;
+	text-color: inherit;
 }
 
 entry {
 	expand:         true;
 	text-color:     @normal-foreground;
-	background-color: rgb(25, 41, 51);
+	background-color: @darker-background-color;
 	vertical-align: 1;
-	padding:        12px;
-	font:            "Roboto medium 13";
+	padding:        16px;
+	font:            "Ubuntu light 20";
+	placeholder:	"Enter...";
+	cursor:		pointer;
 }
 
 element normal.normal {
-	background-color: @normal-background;
+	background-color: @second-background;
 	text-color:       @normal-foreground;
 }
 
@@ -116,13 +131,13 @@ element selected.normal {
 	background-color: @selected-normal-background;
 	text-color:       @selected-normal-foreground;
 	padding: 16px;
-	border:           0 0 0 5px solid;
 	border-color:	    @active-background;
 }
 
 element selected.urgent {
 	background-color: @selected-urgent-background;
 	text-color:       @selected-urgent-foreground;
+	text-transform:	underline;
 }
 
 element selected.active {

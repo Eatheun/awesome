@@ -1,9 +1,11 @@
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local recolor_icon = require("widget.recolor-icon")
+local colors = require("theme.mat-colors").color_palette
 
 local widget = {}
 
-local ICON_DIR = os.getenv("HOME") .. "/.config/awesome/awesome-wm-widgets/volume-widget/icons/"
+local ICON_DIR = "/awesome-wm-widgets/volume-widget/icons/"
 
 function widget.get_widget(widgets_args)
 	local args = widgets_args or {}
@@ -47,12 +49,16 @@ function widget.get_widget(widgets_args)
 					volume_icon_name = "audio-volume-high-symbolic"
 				end
 			end
-			self:get_children_by_id("icon")[1]:set_image(icon_dir .. volume_icon_name .. ".svg")
+
+			local new_image = recolor_icon(icon_dir .. volume_icon_name .. ".svg", colors.color_light)
+			self:get_children_by_id("icon")[1].image = new_image
 		end,
 		mute = function(self)
 			self.is_muted = true
-			self:get_children_by_id("icon")[1]:set_image(icon_dir .. "audio-volume-muted-symbolic.svg")
 			self.colors = { mute_color }
+
+			local new_image = recolor_icon(icon_dir .. "audio-volume-muted-symbolic.svg", colors.color_light)
+			self:get_children_by_id("icon")[1].image = new_image
 		end,
 		unmute = function(self)
 			self.is_muted = false

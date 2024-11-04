@@ -15,20 +15,22 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gfs = require("gears.filesystem")
 local dpi = require("beautiful").xresources.apply_dpi
+local recolor_icon = require("widget.recolor-icon")
+local colors = require("theme.mat-colors").color_palette
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
 -- Battery 0: Charging, 53%, 00:57:43 until charged
 
 local HOME = os.getenv("HOME")
-local WIDGET_DIR = HOME .. "/.config/awesome/awesome-wm-widgets/battery-widget"
+local WIDGET_DIR = "/awesome-wm-widgets/battery-widget"
 
 local battery_widget = {}
 local function worker(user_args)
 	local args = user_args or {}
 
 	local font = args.font or beautiful.font
-	local path_to_icons = args.path_to_icons or "/usr/share/icons/Arc/status/symbolic/"
+	local path_to_icons = args.path_to_icons or "/awesome-wm-widgets/battery-widget/"
 	local show_current_level = args.show_current_level or true
 	local margin_left = args.margin_left or 0
 	local margin_right = args.margin_right or 0
@@ -48,14 +50,6 @@ local function worker(user_args)
 	local enable_battery_warning = args.enable_battery_warning
 	if enable_battery_warning == nil then
 		enable_battery_warning = true
-	end
-
-	if not gfs.dir_readable(path_to_icons) then
-		naughty.notify({
-			title = "Battery Widget",
-			text = "Folder with icons doesn't exist: " .. path_to_icons,
-			preset = naughty.config.presets.critical,
-		})
 	end
 
 	local icon_widget = wibox.widget(require("awesome-wm-widgets.icon-text-template.icon")({ size = height }))
@@ -88,14 +82,6 @@ local function worker(user_args)
 			})
 		end)
 	end
-
-	-- Alternative to naughty.notify - tooltip. You can compare both and choose the preferred one
-	--battery_popup = awful.tooltip({objects = {battery_widget}})
-
-	-- To use colors from beautiful theme put
-	-- following lines in rc.lua before require("battery"):
-	-- beautiful.tooltip_fg = beautiful.fg_normal
-	-- beautiful.tooltip_bg = beautiful.bg_normal
 
 	local function show_battery_warning()
 		naughty.notify({
@@ -184,10 +170,8 @@ local function worker(user_args)
 			batteryType = string.format(batteryType, "")
 		end
 
-		widget.icon:set_image(path_to_icons .. batteryType .. ".svg")
-
-		-- Update popup text
-		-- battery_popup.text = string.gsub(stdout, "\n$", "")
+		local recolored_icon = recolor_icon(path_to_icons .. batteryType .. ".svg", colors.color_light)
+		widget.icon.image = recolored_icon
 	end, icon_widget)
 
 	if display_notification then

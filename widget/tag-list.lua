@@ -1,11 +1,10 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local dpi = require("beautiful").xresources.apply_dpi
-local clickable_container = require("widget.material.clickable-container")
-local capi = { button = _G.button }
 local gears = require("gears")
 local gfs = gears.filesystem
 local modkey = require("configuration.keys.mod").modKey
+local colors = require("theme.mat-colors").color_palette
 
 local margin = 7
 
@@ -33,15 +32,17 @@ local TagList = function(s)
 			awful.tag.viewprev(t.screen)
 		end)
 	)
+
 	----------------------------------------------------------------------
 	----------------------------------------------------------------------
+
 	local base_icon_path = gfs.get_configuration_dir() .. "widget/tag-icons/"
 	local empty = gears.surface.load_uncached(base_icon_path .. "shii.png")
-	local empty_icon = gears.color.recolor_image(empty, "#6C5d80")
+	local empty_icon = gears.color.recolor_image(empty, colors.color_dark)
 	local unfocus = gears.surface.load_uncached(base_icon_path .. "gutsu.png")
-	local unfocus_icon = gears.color.recolor_image(unfocus, "#c2afdb")
+	local unfocus_icon = gears.color.recolor_image(unfocus, colors.color_med)
 	local focus = gears.surface.load_uncached(base_icon_path .. "haku.png")
-	local focus_icon = gears.color.recolor_image(focus, "#f8f0ff")
+	local focus_icon = gears.color.recolor_image(focus, colors.color_light)
 
 	----------------------------------------------------------------------
 	----------------------------------------------------------------------

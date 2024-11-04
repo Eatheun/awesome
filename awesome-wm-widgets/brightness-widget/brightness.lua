@@ -15,6 +15,8 @@ local spawn = require("awful.spawn")
 local gfs = require("gears.filesystem")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
+local recolor_icon = require("widget.recolor-icon")
+local colors = require("theme.mat-colors").color_palette
 
 local ICON_DIR = gfs.get_configuration_dir() .. "awesome-wm-widgets/brightness-widget/"
 local get_brightness_cmd
@@ -73,7 +75,7 @@ local function worker(user_args)
 		return
 	end
 
-	local icon_widget = require("awesome-wm-widgets.icon-text-template.icon")({ size = height, image = path_to_icon })
+	local icon_widget = require("awesome-wm-widgets.icon-text-template.icon")({ size = height })
 	local level_widget = require("awesome-wm-widgets.icon-text-template.text")({ font = font })
 
 	if type == "icon_and_text" then
@@ -101,8 +103,8 @@ local function worker(user_args)
 			max_value = 100,
 			thickness = arc_thickness,
 			start_angle = 4.71238898, -- 2pi*3/4
-			forced_height = size,
-			forced_width = size,
+			forced_height = height,
+			forced_width = width,
 			paddings = paddings,
 			colors = { main_color },
 			widget = wibox.container.arcchart,
@@ -119,6 +121,8 @@ local function worker(user_args)
 		local brightness_level = tonumber(string.format("%.0f", stdout))
 		current_level = brightness_level
 		widget:set_value(brightness_level)
+		local recolored_icon = recolor_icon("/awesome-wm-widgets/brightness-widget/brightness.svg", colors.color_light)
+		widget:get_children_by_id("icon")[1].image = recolored_icon
 	end
 
 	function brightness_widget:set(value)
