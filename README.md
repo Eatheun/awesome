@@ -1,0 +1,2 @@
+# awesome
+AwesomeWM congifuration
