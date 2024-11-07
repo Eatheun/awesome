@@ -92,7 +92,7 @@ local TagList = function(s)
 				update_tags(self, c3)
 			end,
 		},
-		buttons = taglist_buttons,
+		-- buttons = taglist_buttons,
 	})
 end
 return TagList
