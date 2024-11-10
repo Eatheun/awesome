@@ -35,8 +35,8 @@ local awesome_overrides = function(theme)
 	theme.fg_urgent = "#CC9393"
 	theme.bat_fg_critical = "#232323"
 
-	theme.bg_normal = theme.background.hue_800
-	theme.bg_focus = theme.color_palette.color_dark2 -- "#5a5a5a"
+	theme.bg_normal = theme.color_palette.color_dark2 -- theme.background.hue_800
+	theme.bg_focus = theme.color_palette.color_dark2
 	theme.bg_urgent = "#3F3F3F"
 	theme.bg_systray = theme.background.hue_800
 
@@ -51,9 +51,9 @@ local awesome_overrides = function(theme)
 	theme.menu_width = dpi(180)
 
 	-- Tooltips
-	theme.tooltip_bg = "#232323"
+	theme.tooltip_bg = theme.color_palette.color_dark2
 	--theme.tooltip_border_color = '#232323'
-	theme.tooltip_border_width = 4
+	-- theme.tooltip_border_width = 4
 	theme.tooltip_shape = function(cr, w, h)
 		gears.shape.rounded_rect(cr, w, h, dpi(12))
 	end

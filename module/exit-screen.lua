@@ -9,6 +9,7 @@ local dpi = require("beautiful").xresources.apply_dpi
 
 -- Appearance
 local icon_size = beautiful.exit_screen_icon_size or dpi(140)
+local colors = require("theme.mat-colors").color_palette
 
 local buildButton = function(icon)
 	local abutton = wibox.widget({
@@ -97,7 +98,7 @@ exit_screen = wibox({
 	width = screen_geometry.width,
 })
 
-exit_screen.bg = beautiful.background.hue_800 .. "dd"
+exit_screen.bg = colors.color_dark .. "8f" -- beautiful.background.hue_800 .. "dd"
 exit_screen.fg = beautiful.exit_screen_fg or beautiful.wibar_fg or "#FEFEFE"
 
 local exit_screen_grabber

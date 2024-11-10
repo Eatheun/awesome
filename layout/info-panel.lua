@@ -12,6 +12,7 @@ local colors = require("theme.mat-colors").color_palette
 
 -- Import widgets
 local wifi_widget = require("widget.wifi")
+local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
 local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
@@ -25,6 +26,18 @@ add_button:buttons(gears.table.join(awful.button({}, 1, nil, function()
 		placement = awful.placement.bottom_right,
 	})
 end)))
+
+-- Concatenates two tables and returns
+local concat_table = function(t1, t2)
+	local t3 = {}
+	for k, v in pairs(t1) do
+		t3[k] = v
+	end
+	for k, v in pairs(t2) do
+		t3[k] = v
+	end
+	return t3
+end
 
 -- Create an imagebox widget which will contains an icon indicating which layout we're using.
 -- We need one layoutbox per screen.
@@ -51,7 +64,7 @@ local pill_pad = 6 -- base padding on the inside of pill box
 local extra_pad = pill_pad * 2
 local base_size = 22 + pill_pad * 4
 local panel_height = base_size * 5 / 4
-local font_size = pill_pad * 2
+local font_size = pill_pad * 1.75
 local font = "Ubuntu Bold " .. font_size
 
 -- Pill container around widgets
@@ -93,14 +106,22 @@ local pill_separator = function()
 end
 
 local textclock = wibox.widget.textclock("<span font='" .. font .. "'>%I:%M %p</span>")
--- Add a calendar (credits to kylekewley for the original code)
-local month_calendar = awful.widget.calendar_popup.month({
-	screen = s,
-	start_sunday = true,
-	week_numbers = true,
-})
-month_calendar:attach(textclock)
 local clock_widget = wibox.container.margin(textclock, dpi(pill_pad), dpi(pill_pad), dpi(pill_pad), dpi(pill_pad))
+
+-- or customized
+local cw = calendar_widget({
+	placement = "top",
+	start_sunday = true,
+	radius = pill_pad * 4,
+	previous_month_button = 3,
+	next_month_button = 1,
+	margin = extra_pad,
+})
+textclock:connect_signal("button::press", function(_, _, _, button)
+	if button == 1 then
+		cw.toggle()
+	end
+end)
 
 local InfoPanel = function(s)
 	local panel = wibox({
@@ -131,17 +152,8 @@ local InfoPanel = function(s)
 		type = "icon_and_text",
 		word_spacing = pill_pad,
 		main_color = colors.color_light,
+		paddings = pill_pad,
 	}
-	local concat_table = function(t1, t2)
-		local t3 = {}
-		for k, v in pairs(t1) do
-			t3[k] = v
-		end
-		for k, v in pairs(t2) do
-			t3[k] = v
-		end
-		return t3
-	end
 
 	panel:setup({
 		layout = wibox.layout.align.horizontal,
@@ -169,7 +181,6 @@ local InfoPanel = function(s)
 			-- Add all the imported widgets
 			cpu_widget(concat_table({
 				color = colors.color_light,
-				paddings = pill_pad,
 			}, base_table_args)),
 			pill_separator(),
 			ram_widget(concat_table({
@@ -185,7 +196,7 @@ local InfoPanel = function(s)
 			pill_separator(),
 			brightness_widget(concat_table({
 				program = "xbacklight",
-				tooltip = true,
+				-- tooltip = true,
 			}, base_table_args)),
 			pill_separator(),
 			battery_widget(concat_table({

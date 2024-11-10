@@ -13,6 +13,7 @@ local naughty = require("naughty")
 local watch = require("awful.widget.watch")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local gears = require("gears")
 local gfs = require("gears.filesystem")
 local dpi = require("beautiful").xresources.apply_dpi
 local recolor_icon = require("widget.recolor-icon")
@@ -22,7 +23,6 @@ local colors = require("theme.mat-colors").color_palette
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
 -- Battery 0: Charging, 53%, 00:57:43 until charged
 
-local HOME = os.getenv("HOME")
 local WIDGET_DIR = "/awesome-wm-widgets/battery-widget"
 
 local battery_widget = {}
@@ -72,13 +72,16 @@ local function worker(user_args)
 			notification = naughty.notify({
 				text = stdout,
 				title = "Battery status",
-				icon = path_to_icons .. batteryType .. ".svg",
-				icon_size = dpi(16),
+				-- icon = "~/.config/awesome" .. path_to_icons .. batteryType .. ".svg",
+				-- icon_size = dpi(16),
 				position = position,
 				timeout = 5,
 				hover_timeout = 0.5,
-				width = 250,
+				width = 200,
 				screen = mouse.screen,
+				shape = function(cr, w, h)
+					gears.shape.rounded_rect(cr, w, h, 24)
+				end,
 			})
 		end)
 	end
@@ -92,8 +95,8 @@ local function worker(user_args)
 			timeout = 25, -- show the warning for a longer time
 			hover_timeout = 0.5,
 			position = warning_msg_position,
-			bg = "#F06060",
-			fg = "#EEE9EF",
+			bg = colors.color_dark2,
+			fg = colors.color_light,
 			width = 300,
 			screen = mouse.screen,
 		})

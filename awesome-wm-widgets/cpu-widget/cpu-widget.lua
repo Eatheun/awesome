@@ -14,6 +14,9 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gears = require("gears")
 
+local recolor_icon = require("widget.recolor-icon")
+local colors = require("theme.mat-colors").color_palette
+
 local CMD = [[sh -c "grep '^cpu.' /proc/stat; ps -eo 'pid:10,pcpu:5,pmem:5,comm:30,cmd' --sort=-pcpu ]]
 	.. [[| grep -v [p]s | grep -v [g]rep | head -11 | tail -n +2"]]
 
@@ -24,6 +27,7 @@ local HOME_DIR = os.getenv("HOME")
 local WIDGET_DIR = HOME_DIR .. "/.config/awesome/awesome-wm-widgets/cpu-widget"
 
 local cpu_widget = {}
+local cpugraph_widget = {}
 local cpu_rows = {
 	spacing = 4,
 	layout = wibox.layout.fixed.vertical,
@@ -58,9 +62,9 @@ local function create_process_header(params)
 		create_textbox({ markup = "<b>PID</b>" }),
 		create_textbox({ markup = "<b>Name</b>" }),
 		{
-			create_textbox({ markup = "<b>%CPU</b>" }),
-			create_textbox({ markup = "<b>%MEM</b>" }),
-			params.with_action_column and create_textbox({ forced_width = 20 }) or nil,
+			create_textbox({ markup = "<b>CPU</b>" }),
+			create_textbox({ markup = "<b>MEM</b>" }),
+			params.with_action_column and create_textbox({ forced_width = 30 }) or nil,
 			layout = wibox.layout.align.horizontal,
 		},
 		layout = wibox.layout.ratio.horizontal,
@@ -86,6 +90,7 @@ end
 local function worker(user_args)
 	local args = user_args or {}
 
+	local height = args.height or 50
 	local width = args.width or 50
 	local paddings = args.paddings or 8
 	local step_width = args.step_width or 6
@@ -95,15 +100,24 @@ local function worker(user_args)
 	local enable_kill_button = args.enable_kill_button or false
 	local process_info_max_length = args.process_info_max_length or -1
 	local timeout = args.timeout or 1
+	local word_spacing = args.word_spacing or 2
+	local font = args.font or beautiful.font
 
-	local cpugraph_widget = wibox.widget({
-		max_value = 100,
-		background_color = background_color,
+	local icon_widget = require("awesome-wm-widgets.icon-text-template.icon")({ size = height })
+	local level_widget = require("awesome-wm-widgets.icon-text-template.text")({ font = font })
+
+	cpugraph_widget.widget = wibox.widget({
+		icon_widget,
+		level_widget,
+		forced_height = height,
 		forced_width = width,
-		step_width = step_width,
-		step_spacing = step_spacing,
-		widget = wibox.widget.graph,
-		color = "linear:0,0:0,20:0,#FF0000:0.3,#FFFF00:0.6," .. color,
+		spacing = word_spacing,
+		paddings = paddings,
+		layout = wibox.layout.fixed.horizontal,
+		max_value = 100,
+		set_value = function(self, level)
+			self:get_children_by_id("txt")[1]:set_text(level)
+		end,
 	})
 
 	-- This timer periodically executes the heavy command while the popup is open.
@@ -120,7 +134,7 @@ local function worker(user_args)
 		shape = gears.shape.rounded_rect,
 		border_width = 1,
 		border_color = beautiful.bg_normal,
-		maximum_width = 300,
+		maximum_width = 360,
 		offset = { y = 5 },
 		widget = {},
 	})
@@ -133,7 +147,7 @@ local function worker(user_args)
 		is_update = true
 	end)
 
-	cpugraph_widget:buttons(awful.util.table.join(awful.button({}, 1, function()
+	cpugraph_widget.widget:buttons(awful.util.table.join(awful.button({}, 1, function()
 		if popup.visible then
 			popup.visible = not popup.visible
 			-- When the popup is not visible, stop the timer
@@ -147,37 +161,32 @@ local function worker(user_args)
 		end
 	end)))
 
-	--- By default graph widget goes from left to right, so we mirror it and push up a bit
-	cpu_widget = wibox.widget({
-		{
-			cpugraph_widget,
-			reflection = { horizontal = true },
-			layout = wibox.container.mirror,
-		},
-		left = paddings,
-		right = paddings,
-		color = background_color,
-		widget = wibox.container.margin,
-	})
+	local maincpu = {}
+	local name, total, user, nice, system, idle, iowait, irq, softirq, steal, diff_idle, diff_total, diff_usage
+	local calc_cpu_util = function(core)
+		total = user + nice + system + idle + iowait + irq + softirq + steal
+
+		diff_idle = idle - tonumber(core["idle_prev"] == nil and 0 or core["idle_prev"])
+		diff_total = total - tonumber(core["total_prev"] == nil and 0 or core["total_prev"])
+		diff_usage = (1000 * (diff_total - diff_idle) / diff_total + 5) / 10
+	end
 
 	-- This part runs constantly, also when the popup is closed.
 	-- It updates the graph widget in the bar.
-	local maincpu = {}
 	watch(CMD_slim, timeout, function(widget, stdout)
-		local _, user, nice, system, idle, iowait, irq, softirq, steal, _, _ =
+		_, user, nice, system, idle, iowait, irq, softirq, steal, _, _ =
 			stdout:match("(%w+)%s+(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)")
 
-		local total = user + nice + system + idle + iowait + irq + softirq + steal
-
-		local diff_idle = idle - tonumber(maincpu["idle_prev"] == nil and 0 or maincpu["idle_prev"])
-		local diff_total = total - tonumber(maincpu["total_prev"] == nil and 0 or maincpu["total_prev"])
-		local diff_usage = (1000 * (diff_total - diff_idle) / diff_total + 5) / 10
+		calc_cpu_util(maincpu)
 
 		maincpu["total_prev"] = total
 		maincpu["idle_prev"] = idle
 
-		widget:add_value(diff_usage)
-	end, cpugraph_widget)
+		local format_usage = string.format("%.0f%%", diff_usage)
+		widget:set_value(format_usage)
+		local recolored_icon = recolor_icon("/theme/icons/cpu.svg", colors.color_light)
+		widget:get_children_by_id("icon")[1].image = recolored_icon
+	end, cpugraph_widget.widget)
 
 	-- This part runs whenever the timer is fired.
 	-- It therefore only runs when the popup is open.
@@ -192,26 +201,27 @@ local function worker(user_args)
 						cpus[i] = {}
 					end
 
-					local name, user, nice, system, idle, iowait, irq, softirq, steal, _, _ =
+					name, user, nice, system, idle, iowait, irq, softirq, steal, _, _ =
 						line:match("(%w+)%s+(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)")
+					local format_name
+					if name == "cpu" then
+						format_name = string.upper(name) .. "\t  "
+					else
+						format_name = "Core " .. string.sub(name, 4) .. "  |  "
+					end
 
-					local total = user + nice + system + idle + iowait + irq + softirq + steal
-
-					local diff_idle = idle - tonumber(cpus[i]["idle_prev"] == nil and 0 or cpus[i]["idle_prev"])
-					local diff_total = total - tonumber(cpus[i]["total_prev"] == nil and 0 or cpus[i]["total_prev"])
-					local diff_usage = (1000 * (diff_total - diff_idle) / diff_total + 5) / 10
+					calc_cpu_util(cpus[i])
 
 					cpus[i]["total_prev"] = total
 					cpus[i]["idle_prev"] = idle
 
 					local row = wibox.widget({
-						create_textbox({ text = name }),
-						create_textbox({ text = math.floor(diff_usage) .. "%" }),
+						create_textbox({ forced_width = 120, text = format_name .. math.floor(diff_usage) .. "%" }),
 						{
 							max_value = 100,
 							value = diff_usage,
-							forced_height = 20,
-							forced_width = 150,
+							forced_height = 25,
+							forced_width = 180,
 							paddings = 1,
 							margins = 4,
 							border_width = 1,
@@ -224,7 +234,7 @@ local function worker(user_args)
 						},
 						layout = wibox.layout.ratio.horizontal,
 					})
-					row:ajust_ratio(2, 0.15, 0.15, 0.7)
+					row:ajust_ratio(0.8, 0.3, 0.15, 0.7)
 					cpu_rows[i] = row
 					i = i + 1
 				else
@@ -322,10 +332,10 @@ local function worker(user_args)
 		end)
 	end)
 
-	return cpu_widget
+	return cpugraph_widget.widget
 end
 
-return setmetatable(cpu_widget, {
+return setmetatable(cpugraph_widget, {
 	__call = function(_, ...)
 		return worker(...)
 	end,

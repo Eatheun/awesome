@@ -13,6 +13,7 @@ local wibox = require("wibox")
 local watch = require("awful.widget.watch")
 local spawn = require("awful.spawn")
 local gfs = require("gears.filesystem")
+local gears = require("gears")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
 local recolor_icon = require("widget.recolor-icon")
@@ -53,6 +54,7 @@ local function worker(user_args)
 	local height = args.height or 18
 	local width = args.width or 18
 	local tooltip = args.tooltip or false
+	local position = args.notification_position or "top_right"
 	local percentage = args.percentage or true
 	local rmb_set_max = args.rmb_set_max or false
 	if program == "light" then
@@ -191,8 +193,16 @@ local function worker(user_args)
 	if tooltip then
 		awful.tooltip({
 			objects = { brightness_widget.widget },
+			timeout = 5,
+			hover_timeout = 0.5,
+			margin_leftright = word_spacing * 2,
+			margin_topbottom = word_spacing * 2,
+			shape = function(cr, w, h)
+				gears.shape.rounded_rect(cr, w, h, 24)
+			end,
+			position = position,
 			timer_function = function()
-				return current_level .. " %"
+				return "Brightness at " .. current_level .. " %"
 			end,
 		})
 	end
