@@ -9,12 +9,12 @@
 local awful = require("awful")
 local watch = require("awful.widget.watch")
 local wibox = require("wibox")
-local clickable_container = require("widget.material.clickable-container")
+local clickable_container = require("awesome-wm-widgets.material.clickable-container")
 local gears = require("gears")
 local dpi = require("beautiful").xresources.apply_dpi
 
 local HOME = os.getenv("HOME")
-local PATH_TO_ICONS = HOME .. "/.config/awesome/widget/wifi/icons/"
+local PATH_TO_ICONS = HOME .. "/.config/awesome/awesome-wm-widgets/wifi/icons/"
 local connected = false
 local essid = "N/A"
 

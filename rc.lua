@@ -20,7 +20,7 @@ require("module.exit-screen")
 -- Setup all configurations
 require("configuration.client")
 require("configuration.tags")
-_G.root.keys(require("configuration.keys.global"))
+_G.root.keys(require("keys.global"))
 
 -- {{{ Screen
 -- Reset wallpaper when a screen's geometry changes (e.g. different resolution)

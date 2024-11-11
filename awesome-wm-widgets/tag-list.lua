@@ -3,7 +3,7 @@ local wibox = require("wibox")
 local dpi = require("beautiful").xresources.apply_dpi
 local gears = require("gears")
 local gfs = gears.filesystem
-local modkey = require("configuration.keys.mod").modKey
+local modkey = require("keys.mod").modKey
 local colors = require("theme.mat-colors").color_palette
 
 local margin = 7
@@ -36,7 +36,7 @@ local TagList = function(s)
 	----------------------------------------------------------------------
 	----------------------------------------------------------------------
 
-	local base_icon_path = gfs.get_configuration_dir() .. "widget/tag-icons/"
+	local base_icon_path = gfs.get_configuration_dir() .. "awesome-wm-widgets/tag-icons/"
 	local empty = gears.surface.load_uncached(base_icon_path .. "shii.png")
 	local empty_icon = gears.color.recolor_image(empty, colors.color_dark)
 	local unfocus = gears.surface.load_uncached(base_icon_path .. "gutsu.png")

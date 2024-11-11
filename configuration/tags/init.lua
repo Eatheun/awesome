@@ -1,6 +1,4 @@
 local awful = require("awful")
-local gears = require("gears")
-local icons = require("theme.icons")
 local apps = require("configuration.apps")
 
 local tags = {
@@ -28,12 +26,11 @@ local tags = {
 }
 
 awful.layout.layouts = {
+	awful.layout.suit.corner.nw,
 	awful.layout.suit.tile.right,
 	awful.layout.suit.tile.bottom,
 	awful.layout.suit.max,
 	awful.layout.suit.floating,
-	awful.layout.suit.corner.nw,
-	awful.layout.suit.spiral.dwindle,
 }
 
 awful.screen.connect_for_each_screen(function(s)

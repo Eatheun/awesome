@@ -16,7 +16,7 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local gfs = require("gears.filesystem")
 local dpi = require("beautiful").xresources.apply_dpi
-local recolor_icon = require("widget.recolor-icon")
+local recolor_icon = require("awesome-wm-widgets.recolor-icon")
 local colors = require("theme.mat-colors").color_palette
 
 -- acpi sample outputs

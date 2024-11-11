@@ -4,8 +4,8 @@ require("awful.autofocus")
 local beautiful = require("beautiful")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
-local modkey = require("configuration.keys.mod").modKey
-local altkey = require("configuration.keys.mod").altKey
+local modkey = require("keys.mod").modKey
+local altkey = require("keys.mod").altKey
 local apps = require("configuration.apps")
 
 local terminal = "x-terminal-emulator"

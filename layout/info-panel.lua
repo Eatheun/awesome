@@ -1,17 +1,17 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
-local TagList = require("widget.tag-list")
+local TagList = require("awesome-wm-widgets.tag-list")
 local gears = require("gears")
 local dpi = require("beautiful").xresources.apply_dpi
-local clickable_container = require("widget.material.clickable-container")
-local mat_icon_button = require("widget.material.icon-button")
-local mat_icon = require("widget.material.icon")
+local clickable_container = require("awesome-wm-widgets.volume-widget.material.clickable-container")
+local mat_icon_button = require("awesome-wm-widgets.volume-widget.material.icon-button")
+local mat_icon = require("awesome-wm-widgets.volume-widget.material.icon")
 local icons = require("theme.icons")
 local colors = require("theme.mat-colors").color_palette
 
 -- Import widgets
-local wifi_widget = require("widget.wifi")
+local wifi_widget = require("awesome-wm-widgets.wifi.init")
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")

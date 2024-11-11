@@ -16,7 +16,7 @@ local function worker(user_args)
 	local widget_show_buf = args.widget_show_buf or false
 	local widget_height = args.height or 25
 	local widget_width = args.width or 25
-	local recolor_icon = require("widget.recolor-icon")
+	local recolor_icon = require("awesome-wm-widgets.recolor-icon")
 	local colors = require("theme.mat-colors").color_palette
 	local paddings = args.paddings or 4
 	local word_spacing = args.word_spacing or 2
