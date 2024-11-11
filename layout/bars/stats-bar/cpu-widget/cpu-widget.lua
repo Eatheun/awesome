@@ -26,7 +26,6 @@ local CMD_slim = [[grep --max-count=1 '^cpu.' /proc/stat]]
 local HOME_DIR = os.getenv("HOME")
 local WIDGET_DIR = HOME_DIR .. "/.config/awesome/awesome-wm-widgets/cpu-widget"
 
-local cpu_widget = {}
 local cpugraph_widget = {}
 local cpu_rows = {
 	spacing = 4,
@@ -93,10 +92,6 @@ local function worker(user_args)
 	local height = args.height or 50
 	local width = args.width or 50
 	local paddings = args.paddings or 8
-	local step_width = args.step_width or 6
-	local step_spacing = args.step_spacing or 3
-	local color = args.color or beautiful.fg_normal
-	local background_color = args.background_color or "#00000000"
 	local enable_kill_button = args.enable_kill_button or false
 	local process_info_max_length = args.process_info_max_length or -1
 	local timeout = args.timeout or 1

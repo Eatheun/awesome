@@ -2,6 +2,8 @@ local awful = require("awful")
 
 local modkey = require("keys.mod").modKey
 
+-- Set how the mouse buttons work
+
 return awful.util.table.join(
 	awful.button({}, 1, function(c)
 		_G.client.focus = c

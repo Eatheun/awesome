@@ -5,7 +5,7 @@ local colors = require("theme.mat-colors").color_palette
 
 local widget = {}
 
-local ICON_DIR = "/awesome-wm-widgets/volume-widget/icons/"
+local ICON_DIR = "/layout/bars/stats-bar/volume-widget/icons/"
 
 function widget.get_widget(widgets_args)
 	local args = widgets_args or {}

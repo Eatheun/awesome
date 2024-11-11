@@ -13,7 +13,8 @@ local spawn = require("awful.spawn")
 local gears = require("gears")
 local beautiful = require("beautiful")
 local watch = require("awful.widget.watch")
-local utils = require("awesome-wm-widgets.volume-widget.utils")
+local volume_widget_path = "layout.bars.stats-bar.volume-widget"
+local utils = require(volume_widget_path .. ".utils")
 
 local LIST_DEVICES_CMD = [[sh -c "pacmd list-sinks; pacmd list-sources"]]
 local function GET_VOLUME_CMD(card, device, mixctrl, value_type)
@@ -30,11 +31,11 @@ local function TOG_VOLUME_CMD(card, device, mixctrl)
 end -- luacheck: ignore
 
 local widget_types = {
-	icon_and_text = require("awesome-wm-widgets.volume-widget.widgets.icon-and-text-widget"),
-	icon = require("awesome-wm-widgets.volume-widget.widgets.icon-widget"),
-	arc = require("awesome-wm-widgets.volume-widget.widgets.arc-widget"),
-	horizontal_bar = require("awesome-wm-widgets.volume-widget.widgets.horizontal-bar-widget"),
-	vertical_bar = require("awesome-wm-widgets.volume-widget.widgets.vertical-bar-widget"),
+	icon_and_text = require(volume_widget_path .. ".widgets.icon-and-text-widget"),
+	icon = require(volume_widget_path .. ".widgets.icon-widget"),
+	arc = require(volume_widget_path .. ".widgets.arc-widget"),
+	horizontal_bar = require(volume_widget_path .. ".widgets.horizontal-bar-widget"),
+	vertical_bar = require(volume_widget_path .. ".widgets.vertical-bar-widget"),
 }
 local volume = {}
 

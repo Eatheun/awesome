@@ -9,7 +9,7 @@ local colors = require("theme.mat-colors").color_palette
 local margin = 7
 
 local TagList = function(s)
-	-- Taglist buttons
+	-- Taglist buttons for clicking on tags
 	local taglist_buttons = gears.table.join(
 		awful.button({}, 1, function(t)
 			t:view_only()
@@ -36,7 +36,7 @@ local TagList = function(s)
 	----------------------------------------------------------------------
 	----------------------------------------------------------------------
 
-	local base_icon_path = gfs.get_configuration_dir() .. "awesome-wm-widgets/tag-icons/"
+	local base_icon_path = gfs.get_configuration_dir() .. "layout/bars/tag-bar/tag-icons/"
 	local empty = gears.surface.load_uncached(base_icon_path .. "shii.png")
 	local empty_icon = gears.color.recolor_image(empty, colors.color_dark)
 	local unfocus = gears.surface.load_uncached(base_icon_path .. "gutsu.png")

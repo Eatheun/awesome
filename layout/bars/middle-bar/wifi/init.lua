@@ -14,7 +14,7 @@ local gears = require("gears")
 local dpi = require("beautiful").xresources.apply_dpi
 
 local HOME = os.getenv("HOME")
-local PATH_TO_ICONS = HOME .. "/.config/awesome/awesome-wm-widgets/wifi/icons/"
+local PATH_TO_ICONS = HOME .. "/.config/awesome/layout/bars/middle-bar/wifi/icons/"
 local connected = false
 local essid = "N/A"
 

@@ -14,8 +14,6 @@ local watch = require("awful.widget.watch")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gears = require("gears")
-local gfs = require("gears.filesystem")
-local dpi = require("beautiful").xresources.apply_dpi
 local recolor_icon = require("awesome-wm-widgets.recolor-icon")
 local colors = require("theme.mat-colors").color_palette
 
@@ -30,7 +28,7 @@ local function worker(user_args)
 	local args = user_args or {}
 
 	local font = args.font or beautiful.font
-	local path_to_icons = args.path_to_icons or "/awesome-wm-widgets/battery-widget/"
+	local path_to_icons = args.path_to_icons or "/layout/bars/stats-bar/battery-widget/"
 	local show_current_level = args.show_current_level or true
 	local margin_left = args.margin_left or 0
 	local margin_right = args.margin_right or 0

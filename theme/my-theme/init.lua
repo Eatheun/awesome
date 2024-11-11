@@ -7,8 +7,6 @@ local theme = {}
 theme.icons = theme_dir .. "/icons/"
 theme.font = "Roboto medium 10"
 
--- Colors Pallets
-
 -- Primary
 theme.primary = mat_colors.indigo
 theme.primary.hue_500 = "#003f6b"

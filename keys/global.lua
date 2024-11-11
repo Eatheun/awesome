@@ -1,7 +1,6 @@
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
-local beautiful = require("beautiful")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
 local modkey = require("keys.mod").modKey
@@ -13,8 +12,8 @@ editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 local mymainmenu = require("configuration.client.default_menu")
 
-local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
-local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
+local volume_widget = require("layout.bars.stats-bar.volume-widget.volume")
+local brightness_widget = require("layout.bars.stats-bar.brightness-widget.brightness")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to

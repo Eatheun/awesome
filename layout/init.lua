@@ -1,6 +1,5 @@
 local awful = require("awful")
 local info_panel = require("layout.info-panel")
--- local polybar = require("polybar")
 
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(function(s)

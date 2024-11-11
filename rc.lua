@@ -1,9 +1,7 @@
 local gears = require("gears")
 local awful = require("awful")
-local wibox = require("wibox")
 require("awful.autofocus")
 local beautiful = require("beautiful")
-local naughty = require("naughty")
 
 -- Theme
 beautiful.init(require("theme"))
@@ -19,7 +17,7 @@ require("module.exit-screen")
 
 -- Setup all configurations
 require("configuration.client")
-require("configuration.tags")
+require("layout.bars.tag-bar.init")
 _G.root.keys(require("keys.global"))
 
 -- {{{ Screen

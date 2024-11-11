@@ -12,14 +12,13 @@ local awful = require("awful")
 local wibox = require("wibox")
 local watch = require("awful.widget.watch")
 local spawn = require("awful.spawn")
-local gfs = require("gears.filesystem")
 local gears = require("gears")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
 local recolor_icon = require("awesome-wm-widgets.recolor-icon")
 local colors = require("theme.mat-colors").color_palette
 
-local ICON_DIR = gfs.get_configuration_dir() .. "awesome-wm-widgets/brightness-widget/"
+local ICON_DIR = "/layout/bars/stats-bar/brightness-widget/"
 local get_brightness_cmd
 local set_brightness_cmd
 local inc_brightness_cmd
@@ -123,7 +122,7 @@ local function worker(user_args)
 		local brightness_level = tonumber(string.format("%.0f", stdout))
 		current_level = brightness_level
 		widget:set_value(brightness_level)
-		local recolored_icon = recolor_icon("/awesome-wm-widgets/brightness-widget/brightness.svg", colors.color_light)
+		local recolored_icon = recolor_icon(path_to_icon, colors.color_light)
 		widget:get_children_by_id("icon")[1].image = recolored_icon
 	end
 
