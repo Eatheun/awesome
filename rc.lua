@@ -1,4 +1,3 @@
-local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
 local beautiful = require("beautiful")
@@ -19,13 +18,6 @@ require("module.exit-screen")
 require("configuration.client")
 require("layout.bars.tag-bar.init")
 _G.root.keys(require("keys.global"))
-
--- {{{ Screen
--- Reset wallpaper when a screen's geometry changes (e.g. different resolution)
--- screen.connect_signal("property::geometry", function(s)
--- 	beautiful.wallpaper.maximized(beautiful.wallpaper, s, beautiful.wallpapers)
--- end)
--- }}}
 
 -- Signal function to execute when a new client appears.
 _G.client.connect_signal("manage", function(c)
