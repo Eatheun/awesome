@@ -86,7 +86,10 @@ end
 -- Separator between pill box elements
 local pill_separator = function()
 	local base_separator_props = require("awesome-wm-widgets.icon-text-template.text")({ font = font })
-	base_separator_props.text = "|"
+	-- base_separator_props.text = "|"
+	local style_text = "foreground='" .. colors.color_light .. "'"
+	base_separator_props.markup = "<span " .. style_text .. " >|</span>"
+
 	return wibox.widget(base_separator_props)
 end
 
