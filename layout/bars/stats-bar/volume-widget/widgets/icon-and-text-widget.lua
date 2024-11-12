@@ -33,7 +33,10 @@ function widget.get_widget(widgets_args)
 		forced_width = width,
 		bg = bg_color,
 		paddings = paddings,
-		widget = wibox.container.arcchart,
+		update_icon = function(self, path)
+			local new_image = recolor_icon(path, colors.color_dark)
+			self:get_children_by_id("icon")[1].image = new_image
+		end,
 		set_volume_level = function(self, new_value)
 			self:get_children_by_id("txt")[1]:set_text(new_value .. "%")
 			local volume_icon_name
@@ -50,15 +53,13 @@ function widget.get_widget(widgets_args)
 				end
 			end
 
-			local new_image = recolor_icon(icon_dir .. volume_icon_name .. ".svg", colors.color_light)
-			self:get_children_by_id("icon")[1].image = new_image
+			self:update_icon(icon_dir .. volume_icon_name .. ".svg")
 		end,
 		mute = function(self)
 			self.is_muted = true
 			self.colors = { mute_color }
 
-			local new_image = recolor_icon(icon_dir .. "audio-volume-muted-symbolic.svg", colors.color_light)
-			self:get_children_by_id("icon")[1].image = new_image
+			self:update_icon(icon_dir .. "audio-volume-muted-symbolic.svg")
 		end,
 		unmute = function(self)
 			self.is_muted = false

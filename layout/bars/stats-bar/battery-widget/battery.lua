@@ -147,15 +147,16 @@ local function worker(user_args)
 			level_widget.text = string.format("%d%%", charge)
 		end
 
-		if charge >= 1 and charge < 15 then
-			batteryType = "battery-empty%s-symbolic"
-			if enable_battery_warning and status ~= "Charging" and os.difftime(os.time(), last_battery_check) > 300 then
-				-- if 5 minutes have elapsed since the last warning
-				last_battery_check = os.time()
-
-				show_battery_warning()
-			end
-		elseif charge >= 15 and charge < 40 then
+		-- if charge >= 1 and charge < 15 then -- I don't think this works
+		-- 	batteryType = "battery-empty%s-symbolic"
+		-- 	if enable_battery_warning and status ~= "Charging" and os.difftime(os.time(), last_battery_check) > 300 then
+		-- 		-- if 5 minutes have elapsed since the last warning
+		-- 		last_battery_check = os.time()
+		--
+		-- 		show_battery_warning()
+		-- 	end
+		-- end
+		if charge < 40 then
 			batteryType = "battery-caution%s-symbolic"
 		elseif charge >= 40 and charge < 60 then
 			batteryType = "battery-low%s-symbolic"
@@ -171,7 +172,7 @@ local function worker(user_args)
 			batteryType = string.format(batteryType, "")
 		end
 
-		local recolored_icon = recolor_icon(path_to_icons .. batteryType .. ".svg", colors.color_light)
+		local recolored_icon = recolor_icon(path_to_icons .. batteryType .. ".svg", colors.color_dark)
 		widget.icon.image = recolored_icon
 	end, icon_widget)
 

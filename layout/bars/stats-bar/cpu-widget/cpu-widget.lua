@@ -179,7 +179,7 @@ local function worker(user_args)
 
 		local format_usage = string.format("%.0f%%", diff_usage)
 		widget:set_value(format_usage)
-		local recolored_icon = recolor_icon("/theme/icons/cpu.svg", colors.color_light)
+		local recolored_icon = recolor_icon("/theme/icons/cpu.svg", colors.color_dark)
 		widget:get_children_by_id("icon")[1].image = recolored_icon
 	end, cpugraph_widget.widget)
 

@@ -133,7 +133,7 @@ local InfoPanel = function(s)
 		pill_box({
 			layout = wibox.layout.fixed.horizontal,
 			spacing = extra_pad,
-			wifi_widget,
+			wifi_widget(base_table_args),
 			pill_separator(),
 			time_widget(pill_pad, font),
 			pill_separator(),

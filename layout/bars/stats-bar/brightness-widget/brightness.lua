@@ -122,7 +122,7 @@ local function worker(user_args)
 		local brightness_level = tonumber(string.format("%.0f", stdout))
 		current_level = brightness_level
 		widget:set_value(brightness_level)
-		local recolored_icon = recolor_icon(path_to_icon, colors.color_light)
+		local recolored_icon = recolor_icon(path_to_icon, colors.color_dark)
 		widget:get_children_by_id("icon")[1].image = recolored_icon
 	end
 

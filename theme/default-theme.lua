@@ -29,7 +29,7 @@ local awesome_overrides = function(theme)
 	theme.font = "Roboto medium 10"
 	theme.title_font = "Roboto medium 14"
 
-	theme.fg_normal = "#ffffffde"
+	theme.fg_normal = theme.color_palette.color_med --"#ffffffde"
 
 	theme.fg_focus = "#e4e4e4"
 	theme.fg_urgent = "#CC9393"

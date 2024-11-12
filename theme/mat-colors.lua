@@ -316,9 +316,9 @@ return {
 	white = "#FFFFFF",
 
 	color_palette = {
-		color_light = "#fff800",
-		color_med = "#ffba00",
-		color_dark = "#e97000",
-		color_dark2 = "#242044",
+		color_light = "#48c0db",
+		color_med = "#fad424",
+		color_dark = "#f37f01",
+		color_dark2 = "#3d180e",
 	},
 }

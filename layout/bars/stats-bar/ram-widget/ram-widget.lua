@@ -102,7 +102,7 @@ local function worker(user_args)
 		end
 
 		widget:set_value(string.format("%02.1fGb", round_1dp(used)))
-		local recolored_icon = recolor_icon("/theme/icons/ram.svg", colors.color_light)
+		local recolored_icon = recolor_icon("/theme/icons/ram.svg", colors.color_dark)
 		widget:get_children_by_id("icon")[1].image = recolored_icon
 	end, ramgraph_widget.widget)
 
