@@ -155,8 +155,8 @@ local InfoPanel = function(s)
 			pill_separator(),
 			ram_widget(concat_table({
 				color_used = colors.color_dark,
-				color_free = colors.color_light,
-				color_buf = colors.color_med,
+				color_free = colors.color_med,
+				color_buf = colors.color_light,
 				widget_show_buf = true,
 			}, base_table_args)),
 			pill_separator(),
