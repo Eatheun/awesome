@@ -171,31 +171,33 @@ local globalKeys = awful.util.table.join(
 	end, { description = "restore minimized", group = "client" }),
 
 	-- Brightness
-	awful.key({}, "XF86MonBrightnessUp", function()
+	-- "XF86MonBrightnessUp"
+	awful.key({}, "F7", function()
 		brightness_widget:inc()
 	end, { description = "+5%", group = "hotkeys" }),
-	awful.key({}, "XF86MonBrightnessDown", function()
+	-- "XF86MonBrightnessDown"
+	awful.key({}, "F6", function()
 		brightness_widget:dec()
 	end, { description = "-5%", group = "hotkeys" }),
+
 	-- ALSA volume control
-	awful.key({}, "XF86AudioRaiseVolume", function()
+	-- "XF86AudioRaiseVolume"
+	awful.key({}, "F3", function()
 		volume_widget:inc(5)
 	end, { description = "Volume up 5%", group = "hotkeys" }),
-	awful.key({}, "XF86AudioLowerVolume", function()
+	-- "XF86AudioLowerVolume"
+	awful.key({}, "F2", function()
 		volume_widget:dec(5)
 	end, { description = "Volume down 5%", group = "hotkeys" }),
-	awful.key({}, "XF86AudioMute", function()
+	-- "XF86AudioMute"
+	awful.key({}, "F1", function()
 		volume_widget:toggle()
 	end, { description = "Toggle mute", group = "hotkeys" }),
-	awful.key({}, "XF86AudioNext", function()
-		--
-	end, { description = "toggle mute", group = "hotkeys" }),
-	awful.key({}, "XF86PowerDown", function()
-		--
-	end, { description = "toggle mute", group = "hotkeys" }),
+
+	-- Exit screen
 	awful.key({}, "XF86PowerOff", function()
 		_G.exit_screen_show()
-	end, { description = "toggle mute", group = "hotkeys" }),
+	end, { description = "Show exit screen", group = "hotkeys" }),
 
 	-- Screen management
 	awful.key(
