@@ -1,16 +1,13 @@
 ## Material and Mouse driven theme for [AwesomeWM 4.3](https://awesomewm.org/)
-### Original design by PapyElGringo, I modified it removing sidebar and condensing the bars to a single top panel. 
+### Original design by Chris Titus Tech, modifying with wallpapers, i3lock configuration, Rofi configuration, some personal keymaps and, of course, custom pills and window shapes.
 
-Note: This fork focuses on streamlining the config and adding some Quality of Life touches to the theme.
+An desktop environment made with [AwesomeWM](https://awesomewm.org/) following the [Material Design guidelines](https://material.io) with a performant opiniated mouse/keyboard workflow to increase daily productivity and comfort.
 
-An almost desktop environment made with [AwesomeWM](https://awesomewm.org/) following the [Material Design guidelines](https://material.io) with a performant opiniated mouse/keyboard workflow to increase daily productivity and comfort.
-
-[![](./theme/titus-theme/demo.png)](https://www.reddit.com/r/unixporn/comments/anp51q/awesome_material_awesome_workflow/)
+[![](./theme/my-theme/demo.png)](https://www.reddit.com/r/unixporn/comments/anp51q/awesome_material_awesome_workflow/)
 *[Click to view in high quality](https://www.reddit.com/r/unixporn/comments/anp51q/awesome_material_awesome_workflow/)*
 
-| Fullscreen   | Rofi Combo Panel | Exit screen   |
-|:-------------:|:-------------:|:-------------:|
-|![](./theme/titus-theme/fullscreen.png)|![](./theme/titus-theme/panel.png)|![](https://i.imgur.com/rcKOLYQ.png)|
+### Exit Screen
+![](https://i.imgur.com/rcKOLYQ.png)
 
 ## Installation
 
@@ -48,8 +45,8 @@ Recommended Cursors - <https://github.com/keeferrourke/capitaine-cursors>
 Set Rofi Theme
 ```
 mkdir -p ~/.config/rofi
-cp $HOME/.config/awesome/theme/config.rasi ~/.config/rofi/config.rasi
-sed -i '/@import/c\@import "'$HOME'/.config/awesome/theme/sidebar.rasi"' ~/.config/rofi/config.rasi
+cp $HOME/.config/awesome/configuration/rofi.rasi ~/.config/rofi/config.rasi
+sed -i '/@import/c\@import "'$HOME'/.config/awesome/configuration/rofi.rasi"' ~/.config/rofi/config.rasi
 ```
 
 ### 3) Same theme for Qt/KDE applications and GTK applications, and fix missing indicators
@@ -64,18 +61,10 @@ QT_QPA_PLATFORMTHEME=gtk2
 The first variable fixes most indicators (especially electron based ones!), the second tells Qt and KDE applications to use your gtk2 theme set through lxappearance.
 
 Set wallpapers for Variety in `~/.wallpapers/`
+
+Feel free to use different wallpapers and edit them but here's what I have
+
 ```
 mkdir -p ~/.wallpapers/
+cp ~/.config/awesome/.wallpapers ~/.wallpapers
 ```
-
-### 4) Read the documentation
-
-The documentation live within the source code.
-
-The project is split in functional directories and in each of them there is a readme where you can get additional information about the them.
-
-* [Configuration](./configuration) is about all the **settings** available
-* [Layout](./layout) hold the **disposition** of all the widgets
-* [Module](./module) contain all the **features** available
-* [Theme](./theme) hold all the **aesthetic** aspects
-* [Widget](./widget) contain all the **widgets** available
