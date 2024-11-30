@@ -62,8 +62,7 @@ Set wallpapers for Variety in `~/.wallpapers/`
 Feel free to use different wallpapers and edit them but here's what I have
 
 ```
-mkdir -p ~/.wallpapers/
-cp ~/.config/awesome/.wallpapers ~/.wallpapers
+cp -r ~/.config/awesome/.wallpapers ~/
 ```
 
 You'll also need to configure a few settings in Variety like adding the `.wallpapers` location and checking which wallpapers you want it to fetch.
