@@ -10,13 +10,14 @@ local rofi_command = "env /usr/bin/rofi -dpi "
 	.. " -show drun -theme "
 	.. filesystem.get_configuration_dir()
 	.. "/configuration/rofi.rasi -run-command \"/bin/bash -c -i 'shopt -s expand_aliases; {cmd}'\""
+local lock_cmd = require("module.lock_cmds").lock_cmd2
 
 return {
 	-- List of apps to start by default on some actions
 	default = {
 		terminal = "terminator",
 		rofi = rofi_command,
-		lock = "i3lock-fancy",
+		lock = lock_cmd,
 		screenshot = "flameshot screen -p ~/Pictures | xclip",
 		region_screenshot = "flameshot gui",
 		delayed_screenshot = "flameshot screen -p ~/Pictures -d 5000",
