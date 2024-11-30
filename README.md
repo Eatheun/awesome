@@ -3,18 +3,14 @@
 
 An desktop environment made with [AwesomeWM](https://awesomewm.org/) following the [Material Design guidelines](https://material.io) with a performant opiniated mouse/keyboard workflow to increase daily productivity and comfort.
 
-[![](./theme/my-theme/demo.png)](https://www.reddit.com/r/unixporn/comments/anp51q/awesome_material_awesome_workflow/)
-*[Click to view in high quality](https://www.reddit.com/r/unixporn/comments/anp51q/awesome_material_awesome_workflow/)*
-
-### Exit Screen
-![](https://i.imgur.com/rcKOLYQ.png)
+[![](./demo.png)]
 
 ## Installation
 
 ### 1) Get all the dependencies
 
 ```
-sudo apt install awesome fonts-roboto rofi picom i3lock i3lock-fancy xclip qt5-style-plugins materia-gtk-theme lxappearance xbacklight flameshot nautilus xfce4-power-manager pnmixer network-manager-gnome policykit-1-gnome -y
+sudo apt install awesome fonts-roboto rofi picom i3lock i3lock-fancy xclip qt5-style-plugins materia-gtk-theme lxappearance xbacklight flameshot nautilus xfce4-power-manager pnmixer network-manager-gnome policykit-1-gnome variety -y
 ```
 
 #### Program list
@@ -34,6 +30,7 @@ sudo apt install awesome fonts-roboto rofi picom i3lock i3lock-fancy xclip qt5-s
 - [pnmixer](https://github.com/nicklan/pnmixer) Audio Tray icon that is in debian repositories and is easily installed on arch through AUR.
 - [network-manager-applet](https://gitlab.gnome.org/GNOME/network-manager-applet) nm-applet is a Network Manager Tray display from GNOME.
 - [xfce4-power-manager](https://docs.xfce.org/xfce/xfce4-power-manager/start) XFCE4's power manager is excellent and a great way of dealing with sleep, monitor timeout, and other power management features.
+- [variety](https://github.com/varietywalls/variety) Variety for wallpapers
 
 ### 2) Set the themes
 
@@ -68,3 +65,6 @@ Feel free to use different wallpapers and edit them but here's what I have
 mkdir -p ~/.wallpapers/
 cp ~/.config/awesome/.wallpapers ~/.wallpapers
 ```
+
+You'll also need to configure a few settings in Variety like adding the `.wallpapers` location and checking which wallpapers you want it to fetch.
+![](./variety-settings.png)
