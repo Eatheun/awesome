@@ -93,6 +93,37 @@ local pill_separator = function()
 	return wibox.widget(base_separator_props)
 end
 
+-- Here's the base arguments for the widgets
+local base_table_args = {
+	font = font,
+	height = base_size,
+	width = base_size * 1.55,
+	type = "icon_and_text",
+	word_spacing = pill_pad,
+	main_color = colors.color_light,
+	paddings = pill_pad,
+}
+
+-- Stats bar check for laptop or desktop
+local extra_stats = {}
+awful.spawn.easy_async("acpi -i", function(stdout)
+	if stdout ~= "No support for device type: power_supply" then
+		extra_stats = {
+			pill_separator(),
+			brightness_widget(concat_table({
+				program = "xbacklight",
+				-- tooltip = true,
+			}, base_table_args)),
+			pill_separator(),
+			battery_widget(concat_table({
+				display_notification = true,
+				enable_battery_warning = true,
+				timeout = 5,
+			}, base_table_args)),
+		}
+	end
+end)
+
 local InfoPanel = function(s)
 	local panel = wibox({
 		ontop = false,
@@ -114,17 +145,6 @@ local InfoPanel = function(s)
 		top = dpi(panel_height),
 	})
 
-	-- Here's the base arguments for the widgets
-	local base_table_args = {
-		font = font,
-		height = base_size,
-		width = base_size * 1.55,
-		type = "icon_and_text",
-		word_spacing = pill_pad,
-		main_color = colors.color_light,
-		paddings = pill_pad,
-	}
-
 	panel:setup({
 		layout = wibox.layout.align.horizontal,
 		expand = "none",
@@ -144,7 +164,7 @@ local InfoPanel = function(s)
 		}),
 
 		-- Status pill
-		pill_box({
+		pill_box(concat_table({
 			layout = wibox.layout.fixed.horizontal,
 			spacing = extra_pad,
 
@@ -163,18 +183,7 @@ local InfoPanel = function(s)
 			volume_widget(concat_table({
 				mute_color = colors.color_dark,
 			}, base_table_args)),
-			pill_separator(),
-			brightness_widget(concat_table({
-				program = "xbacklight",
-				-- tooltip = true,
-			}, base_table_args)),
-			pill_separator(),
-			battery_widget(concat_table({
-				display_notification = true,
-				enable_battery_warning = true,
-				timeout = 5,
-			}, base_table_args)),
-		}),
+		}, extra_stats)),
 	})
 
 	return panel
