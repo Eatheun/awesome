@@ -96,10 +96,10 @@ local awesome_overrides = function(theme)
 
 	theme.icon_theme = "Papirus-Dark"
 
-	--Client
+	--Client ("" to disable colour)
 	theme.border_width = dpi(0)
-	theme.border_focus = "#44ff99" -- theme.primary.hue_100
-	theme.border_normal = theme.background.hue_700
+	theme.border_focus = "" -- theme.primary.hue_100
+	theme.border_normal = "" -- theme.background.hue_700
 end
 return {
 	theme = theme,
