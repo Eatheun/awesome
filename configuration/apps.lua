@@ -21,7 +21,7 @@ return {
 		screenshot = "flameshot screen -p ~/Pictures | xclip",
 		region_screenshot = "flameshot gui",
 		delayed_screenshot = "flameshot screen -p ~/Pictures -d 5000",
-		browser = "microsoft-edge",
+		browser = "firefox",
 		editor = "nvim", -- gui text editor
 		social = "discord",
 		game = rofi_command,
