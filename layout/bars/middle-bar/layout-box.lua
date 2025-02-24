@@ -1,11 +1,13 @@
 local awful = require("awful")
 local dpi = require("beautiful").xresources.apply_dpi
-local clickable_container = require("layout.bars.stats-bar.volume-widget.material.clickable-container")
+local wibox = require("wibox")
+local clickable_container = require("awesome-wm-widgets.material.clickable-container")
 
 -- Create an imagebox widget which will contains an icon indicating which layout we're using.
 -- We need one layoutbox per screen.
 local LayoutBox = function(s)
-	local layoutBox = clickable_container(awful.widget.layoutbox(s), dpi(4), dpi(4), dpi(8), dpi(4))
+	local layoutBox =
+		clickable_container(wibox.container.margin(awful.widget.layoutbox(s), dpi(8), dpi(8), dpi(8), dpi(8)))
 	layoutBox:buttons(awful.util.table.join(
 		awful.button({}, 1, function()
 			awful.layout.inc(1)

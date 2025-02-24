@@ -105,24 +105,24 @@ local base_table_args = {
 }
 
 -- Stats bar check for laptop or desktop
-local extra_stats = {}
-awful.spawn.easy_async("acpi -i", function(stdout)
-	if stdout ~= "No support for device type: power_supply" then
-		extra_stats = {
-			pill_separator(),
-			brightness_widget(concat_table({
-				program = "xbacklight",
-				-- tooltip = true,
-			}, base_table_args)),
-			pill_separator(),
-			battery_widget(concat_table({
-				display_notification = true,
-				enable_battery_warning = true,
-				timeout = 5,
-			}, base_table_args)),
-		}
-	end
-end)
+local extra_stats = {
+	pill_separator(),
+	brightness_widget(concat_table({
+		program = "xbacklight",
+		-- tooltip = true,
+	}, base_table_args)),
+	pill_separator(),
+	battery_widget(concat_table({
+		display_notification = true,
+		enable_battery_warning = true,
+		timeout = 5,
+	}, base_table_args)),
+}
+-- awful.spawn.easy_async_with_shell("acpi -i", function(stdout)
+-- 	if stdout == "No support for device type: power_supply" then
+-- 		extra_stats = {}
+-- 	end
+-- end)
 
 local InfoPanel = function(s)
 	local panel = wibox({
@@ -164,7 +164,7 @@ local InfoPanel = function(s)
 		}),
 
 		-- Status pill
-		pill_box(concat_table({
+		pill_box({
 			layout = wibox.layout.fixed.horizontal,
 			spacing = extra_pad,
 
@@ -183,7 +183,18 @@ local InfoPanel = function(s)
 			volume_widget(concat_table({
 				mute_color = colors.color_dark,
 			}, base_table_args)),
-		}, extra_stats)),
+			pill_separator(),
+			brightness_widget(concat_table({
+				program = "xbacklight",
+				-- tooltip = true,
+			}, base_table_args)),
+			pill_separator(),
+			battery_widget(concat_table({
+				display_notification = true,
+				enable_battery_warning = true,
+				timeout = 5,
+			}, base_table_args)),
+		}),
 	})
 
 	return panel

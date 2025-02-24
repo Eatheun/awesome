@@ -1,15 +1,21 @@
 local awful = require("awful")
+local beautiful = require("beautiful")
 local apps = require("configuration.apps")
 
 local tags = {
+	{
+		type = "chrome",
+		defaultApp = apps.default.browser,
+		screen = 1,
+	},
 	{
 		type = "code",
 		defaultApp = apps.default.editor,
 		screen = 1,
 	},
 	{
-		type = "chrome",
-		defaultApp = apps.default.browser,
+		type = "code",
+		defaultApp = apps.default.editor,
 		screen = 1,
 	},
 	{
@@ -22,12 +28,17 @@ local tags = {
 		defaultApp = apps.default.rofi,
 		screen = 1,
 	},
+	{
+		type = "any",
+		defaultApp = apps.default.rofi,
+		screen = 1,
+	},
 	-- Add more tags here
 }
 
 awful.layout.layouts = {
 	awful.layout.suit.corner.nw,
-	awful.layout.suit.tile.right,
+	awful.layout.suit.tile,
 	awful.layout.suit.max,
 	awful.layout.suit.floating,
 }
@@ -35,9 +46,9 @@ awful.layout.layouts = {
 awful.screen.connect_for_each_screen(function(s)
 	for i, tag in pairs(tags) do
 		awful.tag.add(i, {
-			icon = tag.icon,
-			icon_only = true,
-			layout = awful.layout.suit.corner.nw, -- set default layout
+			-- icon = tag.icon,
+			-- icon_only = true,
+			layout = awful.layout.layouts[1], -- set default layout
 			gap_single_client = false,
 			gap = 8,
 			screen = s,

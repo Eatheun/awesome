@@ -1,8 +1,12 @@
 local filesystem = require("gears.filesystem")
 local mat_colors = require("theme.mat-colors")
+local colors = mat_colors.color_palette
 local theme_dir = filesystem.get_configuration_dir() .. "/theme"
 local gears = require("gears")
-local dpi = require("beautiful").xresources.apply_dpi
+local beautiful = require("beautiful")
+local dpi = beautiful.xresources.apply_dpi
+local recolor_icon = require("awesome-wm-widgets.recolor-icon")
+
 local theme = {}
 theme.icons = theme_dir .. "/icons/"
 theme.font = "Roboto medium 10"
@@ -23,7 +27,7 @@ theme.color_palette = mat_colors.color_palette
 
 local awesome_overrides = function(theme)
 	theme.dir = os.getenv("HOME") .. "/.config/awesome/theme"
-	theme.icons = theme.dir .. "/icons/"
+	theme.layout_icons_rel_dir = "/theme/icons/layout-icons/"
 	--theme.wallpaper = theme.dir .. '/wallpapers/DarkCyan.png'
 	theme.wallpaper = "#e0e0e0"
 	theme.font = "Roboto medium 10"
@@ -45,7 +49,6 @@ local awesome_overrides = function(theme)
 	theme.border_normal = theme.background.hue_800
 	theme.border_focus = theme.primary.hue_300
 	theme.border_marked = "#CC9393"
-
 	-- Menu
 	theme.menu_height = dpi(42)
 	theme.menu_width = dpi(180)
@@ -59,8 +62,10 @@ local awesome_overrides = function(theme)
 	end
 
 	-- Layout
-	theme.layout_max = theme.icons .. "layouts/arrow-expand-all.png"
-	theme.layout_tile = theme.icons .. "layouts/view-quilt.png"
+	theme.layout_cornernw = recolor_icon(theme.layout_icons_rel_dir .. "jera.png", colors.color_dark)
+	theme.layout_tile = recolor_icon(theme.layout_icons_rel_dir .. "perthro.png", colors.color_dark)
+	theme.layout_max = recolor_icon(theme.layout_icons_rel_dir .. "algiz.png", colors.color_dark)
+	theme.layout_floating = recolor_icon(theme.layout_icons_rel_dir .. "berkano.png", colors.color_dark)
 
 	-- Taglist
 	theme.taglist_bg_empty = theme.color_palette.color_dark2
