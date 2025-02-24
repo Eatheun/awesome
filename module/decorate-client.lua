@@ -20,12 +20,12 @@ local function renderClient(client, mode)
 	if client.rendering_mode == "maximized" then
 		client.border_width = 16
 		client.shape = function(cr, w, h)
-			gears.shape.rounded_rect(cr, w, h, 36)
+			gears.shape.rounded_rect(cr, w, h, 36) -- 36
 		end
 	elseif client.rendering_mode == "tiled" then
 		client.border_width = beautiful.border_width
 		client.shape = function(cr, w, h)
-			gears.shape.rounded_rect(cr, w, h, 16)
+			gears.shape.rounded_rect(cr, w, h, 16) -- 16
 		end
 	end
 end
