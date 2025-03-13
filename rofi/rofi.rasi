@@ -8,7 +8,7 @@ configuration {
 	display-window: "";
 	display-drun: "";
 	display-run: "";
-	show-icons: true;
+	show-icons: false;
     modi: "window,drun,run,filebrowser";
 }
 

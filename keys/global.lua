@@ -69,13 +69,13 @@ local globalKeys = awful.util.table.join(
 
 	-- Rofi
 	awful.key({ modkey }, "r", function()
-		awful.spawn("rofi -show drun -modi drun")
+		awful.spawn("rofi -show drun -modi drun -show-icons")
 	end, { description = "Rofi run program", group = "rofi" }),
 	awful.key({ modkey }, "Tab", function()
-		awful.spawn("rofi -show window -modi window")
+		awful.spawn("rofi -show window -modi window -show-icons")
 	end, { description = "Rofi go to window", group = "rofi" }),
 	awful.key({ modkey }, "f", function()
-		awful.spawn("rofi -show filebrowser -modi filebrowser")
+		awful.spawn("rofi -show filebrowser -modi filebrowser -show-icons")
 	end, { description = "Rofi file explorer", group = "rofi" }),
 	awful.key({ modkey }, "c", function()
 		awful.spawn("rofi -show calc -modi calc -no-show-match -no-sort -automatic-save-to-history")
