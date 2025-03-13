@@ -1,4 +1,5 @@
-local img_path = "/home/eatheun/.config/awesome/module/dominik-mayer-cloud-machine.png"
+local gfs = require("gears").filesystem
+local img_path = gfs.get_configuration_dir() .. "module/dominik-mayer-cloud-machine.png"
 
 return {
 	lock_cmd1 = "i3lock-fancy -p",

@@ -7,7 +7,7 @@ local modkey = require("keys.mod").modKey
 local altkey = require("keys.mod").altKey
 local apps = require("configuration.apps")
 
-local terminal = "x-terminal-emulator"
+local terminal = "gnome-terminal"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 local mymainmenu = require("configuration.client.default_menu")
@@ -51,7 +51,7 @@ local globalKeys = awful.util.table.join(
 	end, { description = "open a terminal", group = "launcher" }),
 
 	-- Default menu open up
-	awful.key({ modkey }, "w", function()
+	awful.key({ modkey, "Shift" }, "w", function()
 		mymainmenu:show()
 	end, { description = "Show default menu", group = "awesome" }),
 
@@ -66,23 +66,38 @@ local globalKeys = awful.util.table.join(
 	awful.key({ modkey }, "a", function()
 		awful.client.focus.byidx(-1)
 	end, { description = "Focus previous by index", group = "client" }),
-	awful.key({ modkey }, "r", function()
-		awful.spawn("rofi -combi-modi window,drun -show combi -modi combi")
-	end, { description = "Main menu", group = "awesome" }),
-	awful.key({ altkey }, "space", function()
-		awful.spawn("rofi -combi-modi window,drun -show combi -modi combi")
-	end, { description = "Show main menu", group = "awesome" }),
-	awful.key({ modkey, "Shift" }, "r", function()
-		awful.spawn("reboot")
-	end, { description = "Reboot Computer", group = "awesome" }),
 
-	-- Power/Lock/Suspend
-	awful.key({ modkey, "Shift" }, "s", function()
-		awful.spawn("shutdown now")
-	end, { description = "Shutdown Computer", group = "awesome" }),
+	-- Rofi
+	awful.key({ modkey }, "r", function()
+		awful.spawn("rofi -show drun -modi drun")
+	end, { description = "Rofi run program", group = "rofi" }),
+	awful.key({ modkey }, "Tab", function()
+		awful.spawn("rofi -show window -modi window")
+	end, { description = "Rofi go to window", group = "rofi" }),
+	awful.key({ modkey }, "f", function()
+		awful.spawn("rofi -show filebrowser -modi filebrowser")
+	end, { description = "Rofi file explorer", group = "rofi" }),
+	awful.key({ modkey }, "c", function()
+		awful.spawn("rofi -show calc -modi calc -no-show-match -no-sort -automatic-save-to-history")
+	end, { description = "Rofi calculator", group = "rofi" }),
+	awful.key({ modkey }, "w", function()
+		local gfs = gears.filesystem
+		awful.util.spawn(gfs.get_configuration_dir() .. "rofi/rofi-wifi-menu.sh")
+	end, { description = "Rofi wifi", group = "rofi" }),
+	awful.key({ modkey }, "t", function()
+		local gfs = gears.filesystem
+		awful.util.spawn(gfs.get_configuration_dir() .. "rofi/rofi-bluetooth.sh")
+	end, { description = "Rofi bluetooth", group = "rofi" }),
+
+	-- ESC screen
 	awful.key({ modkey }, "Escape", function()
-		_G.exit_screen_show()
-	end, { description = "Log Out Screen", group = "awesome" }),
+		local gfs = gears.filesystem
+		awful.util.spawn(gfs.get_configuration_dir() .. "rofi/rofi-exit.sh")
+	end, { description = "Rofi exit screen", group = "exit" }),
+	awful.key({}, "XF86PowerOff", function()
+		local gfs = gears.filesystem
+		awful.util.spawn(gfs.get_configuration_dir() .. "rofi/rofi-exit.sh")
+	end, { description = "Alt Rofi exit screen", group = "exit" }),
 
 	-- Tabs? idk
 	awful.key({ modkey }, "u", awful.client.urgent.jumpto, { description = "jump to urgent client", group = "client" }),
@@ -111,7 +126,7 @@ local globalKeys = awful.util.table.join(
 	awful.key({ modkey }, "p", function()
 		awful.util.spawn_with_shell(apps.default.region_screenshot)
 	end, { description = "Mark an area and screenshot it to your clipboard", group = "screenshots (clipboard)" }),
-	awful.key({ altkey, "Shift" }, "p", function()
+	awful.key({ altkey, "ShiftOut " }, "p", function()
 		awful.util.spawn_with_shell(apps.default.screenshot)
 	end, {
 		description = "Take a screenshot of your active monitor and copy it to clipboard",
@@ -194,11 +209,6 @@ local globalKeys = awful.util.table.join(
 		volume_widget:toggle()
 	end, { description = "Toggle mute", group = "hotkeys" }),
 
-	-- Exit screen
-	awful.key({}, "XF86PowerOff", function()
-		_G.exit_screen_show()
-	end, { description = "Show exit screen", group = "hotkeys" }),
-
 	-- Screen management
 	awful.key(
 		{ modkey },
@@ -206,14 +216,6 @@ local globalKeys = awful.util.table.join(
 		awful.client.movetoscreen,
 		{ description = "move window to next screen", group = "client" }
 	),
-
-	-- Open default program for tag
-	awful.key({ modkey }, "t", function()
-		awful.spawn(awful.screen.focused().selected_tag.defaultApp, {
-			tag = _G.mouse.screen.selected_tag,
-			placement = awful.placement.bottom_right,
-		})
-	end, { description = "Open default program for tag/workspace", group = "tag" }),
 
 	-- Custom hotkeys
 	-- vfio integration

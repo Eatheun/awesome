@@ -12,7 +12,11 @@ local function run_once(cmd)
 		findme = cmd:sub(0, firstspace - 1)
 	end
 	awful.spawn.with_shell(string.format("pgrep -u $USER -x %s > /dev/null || (%s)", findme, cmd))
+
+	-- transfer sleep
 	awful.spawn.with_shell("xss-lock --transfer-sleep-lock -- " .. lock_cmd)
+	-- swap caps and esc
+	awful.spawn.with_shell("/usr/bin/setxkbmap -option 'caps:swapescape'")
 end
 
 for _, app in ipairs(apps.run_on_start_up) do

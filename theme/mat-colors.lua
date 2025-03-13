@@ -316,9 +316,9 @@ return {
 	white = "#FFFFFF",
 
 	color_palette = {
-		color_light = "#48c0db",
-		color_med = "#fad424",
-		color_dark = "#f37f01",
-		color_dark2 = "#3d180e",
+		color_light = "#48c0db", -- blue
+		color_med = "#fad424", -- yellow
+		color_dark = "#f37f01", -- orange
+		color_dark2 = "#3d180e", -- dark brown
 	},
 }

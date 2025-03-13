@@ -1,0 +1,144 @@
+/**
+ * User: eatheun
+ * Copyright: eatheun
+ */
+
+configuration {
+	display-filebrowser: "";
+	display-window: "";
+	display-drun: "";
+	display-run: "";
+	show-icons: true;
+    modi: "window,drun,run,filebrowser";
+}
+
+* {
+    color-light: #48c0db; // blue
+	color-dark2: #3d180e; // dark brown
+	color-med: #fad424; // yellow
+	selbg: @color-light;
+	actbg: #f37f01; // orange
+	selfg: @color-dark2;
+
+	selected-normal-foreground:  @selfg;
+	normal-foreground:           @color-med;
+	selected-normal-background:  @actbg;
+	normal-background:           @color-dark2;
+
+	selected-active-foreground:  @selfg;
+	active-foreground:           @color-med;
+	selected-active-background:  @actbg;
+	active-background:           @color-dark2;
+
+	hide-scrollbar:              "true";
+	margin:                      0px;
+	padding:                     0px;
+	font:                        "Ubuntu medium 16";
+}
+
+window {
+	location: center;
+	anchor: center;
+	x-offset: 0px;
+    width: 960px;
+	height: 45.1%;
+	margin-right: 60px;
+	orientation: horizontal;
+	children: [side-container, mainbox];
+	background-color: @actbg;
+}
+
+side-container {
+    background-color: @color-dark2;
+	border-radius: 12px;
+    padding: 80px;
+    children: [side-img];
+}
+
+side-img {
+    location: center;
+    border-radius: 180px;
+    background-image: url("~/.config/awesome/rofi/reg_edited.png");
+}
+
+mainbox {
+	background-color: @color-dark2;
+	spacing: 0px;
+	padding: 0px;
+	border-radius: 12px;
+	children: [inputbar, message, listview, sidebar];
+	expand: true;
+}
+
+button {
+	padding: 0px; 
+}
+
+button selected {
+	background-color: @color-dark2;
+	text-color:       @color-dark2;
+}
+
+inputbar {
+     children: [entry];
+}
+
+entry {
+	expand: true;
+	text-color: @color-med;
+	background-color: @color-dark2;
+	padding: 26px;
+	font: "Ubuntu bold 22";
+	placeholder: "";
+	cursor: pointer;
+}
+
+message {
+    width: 200px;
+    children: [textbox];
+}
+
+textbox {
+    padding: 14px;
+	font: "Ubuntu light 12";
+	text-color: @color-light;
+	background-color: @color-dark2;
+}
+
+listview {
+	spacing: 0;
+	dynamic: true;
+	cycle:   true;
+}
+
+element {
+	padding: 14px;
+	border: 0px solid;
+}
+
+element-text {
+	background-color: inherit;
+}
+
+element normal {
+	background-color: @normal-background;
+	text-color:       @normal-foreground;
+}
+
+element selected {
+	background-color: @selected-normal-background;
+	text-color: @selected-normal-foreground;
+}
+
+element alternate.normal {
+	background-color: @normal-background;
+	text-color: @normal-foreground;
+}
+element alternate.active {
+	background-color: @normal-background;
+	text-color: @normal-foreground;
+}
+element alternate.normal {
+	background-color: @normal-background;
+	text-color: @normal-foreground;
+}
