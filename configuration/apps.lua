@@ -21,12 +21,11 @@ return {
 		screenshot = "flameshot screen -p ~/Pictures | xclip",
 		region_screenshot = "flameshot gui",
 		delayed_screenshot = "flameshot screen -p ~/Pictures -d 5000",
+		entire_screenshot = "flameshot full -c",
 		browser = "vivaldi",
 		editor = "nvim", -- gui text editor
 		social = "discord",
-		game = rofi_command,
 		files = "nautilus",
-		music = rofi_command,
 	},
 	-- List of apps to start once on start-up
 	run_on_start_up = {
