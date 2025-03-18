@@ -88,6 +88,10 @@ local globalKeys = awful.util.table.join(
 		local gfs = gears.filesystem
 		awful.util.spawn(gfs.get_configuration_dir() .. "rofi/rofi-bluetooth.sh")
 	end, { description = "Rofi bluetooth", group = "rofi" }),
+	awful.key({ modkey }, "m", function()
+		local gfs = gears.filesystem
+		awful.util.spawn(gfs.get_configuration_dir() .. "rofi/rofi-music.sh")
+	end, { description = "Rofi music", group = "rofi" }),
 
 	-- ESC screen
 	awful.key({ modkey }, "Escape", function()
@@ -221,14 +225,6 @@ local globalKeys = awful.util.table.join(
 	-- vfio integration
 	awful.key({ "Control", altkey }, "space", function()
 		awful.util.spawn_with_shell("vm-attach attach")
-	end),
-	-- Lutris hotkey
-	awful.key({ modkey }, "g", function()
-		awful.util.spawn_with_shell("lutris")
-	end),
-	-- System Monitor hotkey
-	awful.key({ modkey }, "m", function()
-		awful.util.spawn_with_shell("mate-system-monitor")
 	end),
 	-- Kill VLC
 	awful.key({ modkey }, "v", function()

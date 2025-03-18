@@ -14,9 +14,15 @@ Install AwesomeWM, Rofi app launcher, Picom compositor, lock screen
 sudo apt-get update
 sudo apt install awesome fonts-roboto rofi picom i3lock i3lock-fancy -y
 ```
-Install screenshot tools, screen brightness adjuster, power manager, network manager, wallpaper manager
+
+Install miscellaneous dependencies
 ```
-sudo apt install xclip qt5-style-plugins materia-gtk-theme xbacklight flameshot nautilus xfce4-power-manager pnmixer network-manager-gnome policykit-1-gnome variety -y
+sudo apt install curl qt5-style-plugins materia-gtk-theme policykit-1-gnome -y
+```
+
+Install CLIs for screenshot tools, screen brightness adjuster, power manager, network manager, wallpaper manager, music player
+```
+sudo apt install xclip xbacklight flameshot nautilus xfce4-power-manager pnmixer network-manager-gnome variety mpg123 -y
 ```
 
 ### 2) Setup for Rofi Launcher
@@ -39,6 +45,11 @@ cd build/
 ../configure
 make
 # make install
+```
+
+Some minimal setup for music folder
+```
+mkdir -p ~/Music/
 ```
 
 Some keyboard macros for Rofi include:
