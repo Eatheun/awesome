@@ -6,13 +6,18 @@ play_random() {
 
     # get num musics and get random'th music
     musics=$(find ~/Music/ | sed -nE "/\.mp3$/p")
-    n_mus=$(echo "$musics" | wc -l)
-    ran_mus=$(echo "$musics" | sed -n "$((randint % n_mus + 1))p")
+    n_mus=$(echo -n "$musics" | wc -l)
+    if [ "$n_mus" != 0 ]; then
+        ran_mus=$(echo "$musics" | sed -n "$((randint % n_mus + 1))p")
 
-    # play and notify song name
-    song_name=$(echo "$ran_mus" | grep -oE "[^/]*$")
-    notify-send "Playing: $song_name"
-    mpg123 "$ran_mus"
+        # play and notify song name
+        song_name=$(echo "$ran_mus" | grep -oE "[^/]*$")
+        notify-send "Playing: $song_name"
+        mpg123 "$ran_mus"
+    else
+        notify-send "No music to play in ~/Music/ folder!"
+        exit 1
+    fi
 }
 
 stop_option="⏸ Stop music"
