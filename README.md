@@ -52,14 +52,7 @@ Some minimal setup for music folder
 mkdir -p ~/Music/
 ```
 
-Some keyboard macros for Rofi include:
-
-Bluetooth manager: `Super + t`\
-Calculator: `Super + c`\
-Jump to window: `Super + Tab`\
-Network manager: `Super + w`\
-Music player: `Super + m`\
-Simple file explorer: `Super + f`
+Simply open the Rofi manager with `Super + r` :D
 
 ### 3) Same theme for Qt/KDE applications and GTK applications, and fix missing indicators
 

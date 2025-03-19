@@ -69,29 +69,33 @@ local globalKeys = awful.util.table.join(
 
 	-- Rofi
 	awful.key({ modkey }, "r", function()
-		awful.spawn("rofi -show drun -modi drun -show-icons")
-	end, { description = "Rofi run program", group = "rofi" }),
-	awful.key({ modkey }, "Tab", function()
-		awful.spawn("rofi -show window -modi window -show-icons")
-	end, { description = "Rofi go to window", group = "rofi" }),
-	awful.key({ modkey }, "f", function()
-		awful.spawn("rofi -show filebrowser -modi filebrowser -show-icons")
-	end, { description = "Rofi file explorer", group = "rofi" }),
-	awful.key({ modkey }, "c", function()
-		awful.spawn("rofi -show calc -modi calc -no-show-match -no-sort -automatic-save-to-history")
-	end, { description = "Rofi calculator", group = "rofi" }),
-	awful.key({ modkey }, "w", function()
 		local gfs = gears.filesystem
-		awful.util.spawn(gfs.get_configuration_dir() .. "rofi/rofi-wifi-menu.sh")
-	end, { description = "Rofi wifi", group = "rofi" }),
-	awful.key({ modkey }, "t", function()
-		local gfs = gears.filesystem
-		awful.util.spawn(gfs.get_configuration_dir() .. "rofi/rofi-bluetooth.sh")
-	end, { description = "Rofi bluetooth", group = "rofi" }),
-	awful.key({ modkey }, "m", function()
-		local gfs = gears.filesystem
-		awful.util.spawn(gfs.get_configuration_dir() .. "rofi/rofi-music.sh")
+		awful.util.spawn(gfs.get_configuration_dir() .. "rofi/rofi-all.sh")
 	end, { description = "Rofi music", group = "rofi" }),
+	-- awful.key({ modkey }, "r", function()
+	-- 	awful.spawn("rofi -show drun -modi drun -show-icons")
+	-- end, { description = "Rofi run program", group = "rofi" }),
+	-- awful.key({ modkey }, "Tab", function()
+	-- 	awful.spawn("rofi -show window -modi window -show-icons")
+	-- end, { description = "Rofi go to window", group = "rofi" }),
+	-- awful.key({ modkey }, "f", function()
+	-- 	awful.spawn("rofi -show filebrowser -modi filebrowser -show-icons")
+	-- end, { description = "Rofi file explorer", group = "rofi" }),
+	-- awful.key({ modkey }, "c", function()
+	-- 	awful.spawn("rofi -show calc -modi calc -no-show-match -no-sort -automatic-save-to-history")
+	-- end, { description = "Rofi calculator", group = "rofi" }),
+	-- awful.key({ modkey }, "w", function()
+	-- 	local gfs = gears.filesystem
+	-- 	awful.util.spawn(gfs.get_configuration_dir() .. "rofi/rofi-wifi-menu.sh")
+	-- end, { description = "Rofi wifi", group = "rofi" }),
+	-- awful.key({ modkey }, "t", function()
+	-- 	local gfs = gears.filesystem
+	-- 	awful.util.spawn(gfs.get_configuration_dir() .. "rofi/rofi-bluetooth.sh")
+	-- end, { description = "Rofi bluetooth", group = "rofi" }),
+	-- awful.key({ modkey }, "m", function()
+	-- 	local gfs = gears.filesystem
+	-- 	awful.util.spawn(gfs.get_configuration_dir() .. "rofi/rofi-music.sh")
+	-- end, { description = "Rofi music", group = "rofi" }),
 
 	-- ESC screen
 	awful.key({ modkey }, "Escape", function()
