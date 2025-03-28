@@ -2,7 +2,7 @@
 
 play_random() {
     # get a random 2-byte unsigned integer
-    randint=$(head -c4 /dev/random | od -d | tr '\n' ' ' | sed -E "s/ +/ /g" | cut -d ' ' -f2,3 | tr -d ' ')
+    randint=$(echo $RANDOM)
 
     # get num musics and get random'th music
     musics=$(find ~/Music/ | sed -nE "/\.mp3$/p")

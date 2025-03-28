@@ -15,8 +15,8 @@ local function run_once(cmd)
 
 	-- transfer sleep
 	awful.spawn.with_shell("xss-lock --transfer-sleep-lock -- " .. lock_cmd)
-	-- swap caps and esc
-	awful.spawn.with_shell("/usr/bin/setxkbmap -option 'caps:swapescape'")
+	-- swap caps and esc (only activate for traditional kbs)
+	-- awful.spawn.with_shell("/usr/bin/setxkbmap -option 'caps:swapescape'")
 end
 
 for _, app in ipairs(apps.run_on_start_up) do
