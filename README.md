@@ -36,6 +36,7 @@ sed -i '/@import/c\@import "~/.config/awesome/configuration/rofi.rasi"' ~/.confi
 
 Set up Rofi calculator from [Sventaro's repo](https://github.com/svenstaro/rofi-calc)
 ```
+sudo apt install rofi-dev qalc libtool libtool-bin
 git clone https://github.com/svenstaro/rofi-calc.git
 cd rofi-calc/
 mkdir m4
