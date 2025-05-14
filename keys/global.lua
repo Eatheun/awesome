@@ -133,6 +133,9 @@ local globalKeys = awful.util.table.join(
 	}),
 	awful.key({ modkey }, "p", function()
 		awful.util.spawn_with_shell(apps.default.entire_screenshot)
+	end, { description = "Screenshot entire screen to your clipboard", group = "screenshots (clipboard)" }),
+	awful.key({ modkey, "Ctrl" }, "p", function()
+		awful.util.spawn_with_shell(apps.default.region_screenshot)
 	end, { description = "Mark an area and screenshot it to your clipboard", group = "screenshots (clipboard)" }),
 	awful.key({ altkey, "ShiftOut " }, "p", function()
 		awful.util.spawn_with_shell(apps.default.screenshot)
